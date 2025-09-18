@@ -16,7 +16,7 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-          <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={onClose}></div>
+          <div className="absolute inset-0 bg-gray-900 opacity-50" onClick={onClose}></div>
         </div>
 
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
@@ -91,9 +91,9 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="max-h-96 overflow-y-auto">
                 {activeTab === 'basics' && (
                   <div className="space-y-4">
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">Quick Start</h4>
-                      <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                    <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">Quick Start</h4>
+                      <ol className="list-decimal list-inside space-y-2 text-sm text-gray-800 font-medium">
                         <li>Search for resources in the search bar or browse all available layers</li>
                         <li>Click on any green "Feature" resource to add it to your map</li>
                         <li>View your active layers at the bottom of the sidebar</li>
@@ -103,19 +103,19 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
                     </div>
                     
                     <div>
-                      <h4 className="font-bold text-gray-900 mb-2">Understanding the Interface</h4>
-                      <ul className="space-y-2 text-sm text-gray-700">
+                      <h4 className="font-bold text-gray-900 mb-3 text-lg">Understanding the Interface</h4>
+                      <ul className="space-y-3 text-sm">
                         <li className="flex items-start">
-                          <span className="text-green-500 mr-2">✓</span>
-                          <span><strong>Green borders</strong> = Layer is active on the map</span>
+                          <span className="text-green-600 mr-2 text-lg font-bold">✓</span>
+                          <span className="text-gray-800"><strong className="text-gray-900">Green borders</strong> = Layer is active on the map</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">◉</span>
-                          <span><strong>Blue hover</strong> = Layer can be added to map</span>
+                          <span className="text-blue-600 mr-2 text-lg font-bold">◉</span>
+                          <span className="text-gray-800"><strong className="text-gray-900">Blue hover</strong> = Layer can be added to map</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="text-gray-400 mr-2">○</span>
-                          <span><strong>Gray/disabled</strong> = Apps or references (not map layers)</span>
+                          <span className="text-gray-500 mr-2 text-lg font-bold">○</span>
+                          <span className="text-gray-800"><strong className="text-gray-900">Gray/disabled</strong> = Apps or references (not map layers)</span>
                         </li>
                       </ul>
                     </div>
@@ -124,32 +124,32 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
 
                 {activeTab === 'types' && (
                   <div className="space-y-4">
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">🗺️ Features (Map Layers)</h4>
-                      <p className="text-sm text-gray-700 mb-2">
+                    <div className="bg-green-50 border-2 border-green-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">🗺️ Features (Map Layers)</h4>
+                      <p className="text-sm text-gray-800 mb-2 font-medium">
                         Data you can add directly to the map as visual layers. Think of these as transparent overlays.
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-700 font-medium">
                         <strong>Examples:</strong> Building footprints, fire perimeters, flood zones, population density
                       </p>
                     </div>
 
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">📱 Apps (External Tools)</h4>
-                      <p className="text-sm text-gray-700 mb-2">
+                    <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">📱 Apps (External Tools)</h4>
+                      <p className="text-sm text-gray-800 mb-2 font-medium">
                         Complete web applications that open in a new tab. These are standalone tools for analysis.
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-700 font-medium">
                         <strong>Examples:</strong> Hurricane trackers, population calculators, weather radars
                       </p>
                     </div>
 
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">📚 References (Documentation)</h4>
-                      <p className="text-sm text-gray-700 mb-2">
+                    <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">📚 References (Documentation)</h4>
+                      <p className="text-sm text-gray-800 mb-2 font-medium">
                         Guides, documentation, and resource portals to help you understand and use the data.
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-700 font-medium">
                         <strong>Examples:</strong> Census guides, data portals, training materials
                       </p>
                     </div>
@@ -158,9 +158,9 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
 
                 {activeTab === 'scenarios' && (
                   <div className="space-y-4">
-                    <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">🌀 Hurricane Response</h4>
-                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700">
+                    <div className="bg-orange-50 border-2 border-orange-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">🌀 Hurricane Response</h4>
+                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-800 font-medium">
                         <li>Add "USA Structures" to see buildings in the path</li>
                         <li>Add "Census Block Characteristics" for population data</li>
                         <li>Add "Live Stream Gauges" to monitor flooding</li>
@@ -169,9 +169,9 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
                       </ol>
                     </div>
 
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">🔥 Wildfire Management</h4>
-                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700">
+                    <div className="bg-red-50 border-2 border-red-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">🔥 Wildfire Management</h4>
+                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-800 font-medium">
                         <li>Add "Current Wildland Fire Incident Locations"</li>
                         <li>Add "WFIGS Current Fire Perimeters"</li>
                         <li>Add building footprints to identify threatened structures</li>
@@ -180,9 +180,9 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
                       </ol>
                     </div>
 
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">🌊 Flood Response</h4>
-                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700">
+                    <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">🌊 Flood Response</h4>
+                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-800 font-medium">
                         <li>Add "Live Stream Gauges" for water levels</li>
                         <li>Add inundation mapping layers</li>
                         <li>Add census data for affected populations</li>
@@ -195,9 +195,9 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
 
                 {activeTab === 'tips' && (
                   <div className="space-y-4">
-                    <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">💡 Pro Tips</h4>
-                      <ul className="space-y-2 text-sm text-gray-700">
+                    <div className="bg-purple-50 border-2 border-purple-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">💡 Pro Tips</h4>
+                      <ul className="space-y-2 text-sm text-gray-800 font-medium">
                         <li className="flex items-start">
                           <span className="text-purple-500 mr-2">•</span>
                           <span><strong>Start simple:</strong> Add 1-2 layers first, then build up your view</span>
@@ -221,9 +221,9 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
                       </ul>
                     </div>
 
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <h4 className="font-bold text-gray-900 mb-2">⚡ Quick Reference</h4>
-                      <div className="space-y-1 text-sm text-gray-700">
+                    <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">⚡ Quick Reference</h4>
+                      <div className="space-y-1 text-sm text-gray-800 font-medium">
                         <p><strong>Need to see something?</strong> → Add a Feature layer</p>
                         <p><strong>Need to analyze?</strong> → Open an App</p>
                         <p><strong>Need to learn?</strong> → Check References</p>
@@ -232,8 +232,8 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
                     </div>
 
                     <div>
-                      <h4 className="font-bold text-gray-900 mb-2">🏆 Most Used Resources</h4>
-                      <ul className="space-y-1 text-sm text-gray-700">
+                      <h4 className="font-bold text-gray-900 mb-2 text-lg">🏆 Most Used Resources</h4>
+                      <ul className="space-y-1 text-sm text-gray-800 font-medium">
                         <li>• <strong>USA Structures</strong> - Building footprints</li>
                         <li>• <strong>Census Blocks</strong> - Population data</li>
                         <li>• <strong>Live Stream Gauges</strong> - Flood monitoring</li>

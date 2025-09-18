@@ -27,16 +27,23 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [showHelp, setShowHelp] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(false)
   const mapRef = useRef<MapViewRef>(null)
 
   useEffect(() => {
     handleSearch('', '')
-    // Show help on first visit
-    const hasVisited = localStorage.getItem('mapping-tool-visited')
-    if (!hasVisited) {
-      setShowHelp(true)
-      localStorage.setItem('mapping-tool-visited', 'true')
-    }
+  }, [])
+  
+  // Show welcome banner on first visit after initial load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const hasVisited = localStorage.getItem('mapping-tool-visited')
+      if (!hasVisited) {
+        setShowWelcome(true)
+      }
+    }, 1500) // Wait 1.5 seconds after page loads
+    
+    return () => clearTimeout(timer)
   }, [])
 
   const handleSearch = async (query: string, type?: string) => {
@@ -336,6 +343,39 @@ export default function Home() {
           <MapView ref={mapRef} selectedLayers={selectedLayers} />
         </main>
       </div>
+
+      {/* Welcome Banner for First-Time Users */}
+      {showWelcome && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-fadeIn">
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl shadow-2xl flex items-center gap-4">
+            <div>
+              <p className="text-lg font-bold">Welcome to Mapping Resource Tool!</p>
+              <p className="text-sm opacity-90">Access 60+ disaster response mapping resources</p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setShowWelcome(false)
+                  setShowHelp(true)
+                  localStorage.setItem('mapping-tool-visited', 'true')
+                }}
+                className="px-4 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                View Tutorial
+              </button>
+              <button
+                onClick={() => {
+                  setShowWelcome(false)
+                  localStorage.setItem('mapping-tool-visited', 'true')
+                }}
+                className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition-colors"
+              >
+                Skip
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Help Modal */}
       <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
