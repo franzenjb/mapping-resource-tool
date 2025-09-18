@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build --no-lint",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "export": "next build --no-lint && next export"
   },
   "dependencies": {
     "@arcgis/core": "^4.33.14",
