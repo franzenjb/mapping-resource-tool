@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import Navigation from '@/components/Navigation'
+import HelpModal from '@/components/HelpModal'
 import { searchLayers, canAddToMap } from '@/lib/search'
 import { MappingLayer, MapViewRef } from '@/lib/types'
 
@@ -25,10 +26,17 @@ export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [showHelp, setShowHelp] = useState(false)
   const mapRef = useRef<MapViewRef>(null)
 
   useEffect(() => {
     handleSearch('', '')
+    // Show help on first visit
+    const hasVisited = localStorage.getItem('mapping-tool-visited')
+    if (!hasVisited) {
+      setShowHelp(true)
+      localStorage.setItem('mapping-tool-visited', 'true')
+    }
   }, [])
 
   const handleSearch = async (query: string, type?: string) => {
@@ -112,7 +120,18 @@ export default function Home() {
           
           {/* Search Header */}
           <div className="p-5 bg-gradient-to-b from-white to-gray-50 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Layer Search</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900">Layer Search</h2>
+              <button
+                onClick={() => setShowHelp(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                How to Use
+              </button>
+            </div>
             <div className="relative">
               <input
                 type="text"
@@ -317,6 +336,9 @@ export default function Home() {
           <MapView ref={mapRef} selectedLayers={selectedLayers} />
         </main>
       </div>
+
+      {/* Help Modal */}
+      <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
     </div>
   )
 }
