@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/mapping-resource-tool',
+  basePath: isProd ? '/mapping-resource-tool' : '',
   images: {
     unoptimized: true,
   },
