@@ -1,90 +1,143 @@
-# ArcGIS & Red Cross Mapping Resources Tool
+# Mapping Resource Tool
 
-A powerful web application for searching, previewing, and exporting ArcGIS and Red Cross mapping layers and applications. Built with Next.js, TypeScript, and ArcGIS JavaScript API.
+A comprehensive web application for accessing and managing ArcGIS and Red Cross mapping resources. Built with Next.js, TypeScript, and the ArcGIS JavaScript API.
 
-## Features
+## 🌐 Live Demo
 
-- **Search & Filter**: Search across hundreds of mapping resources by name, description, or category
-- **Interactive Map Preview**: Add multiple layers to an interactive map for visualization
+**Production:** https://mapping-resource-tool.vercel.app  
+**GitHub Repository:** https://github.com/franzenjb/mapping-resource-tool
+
+## 🚀 Features
+
+- **Rich Resource Database**: Access to 60+ curated mapping layers from ArcGIS, NOAA, Red Cross, and more
+- **Interactive Map**: Real-time visualization with ArcGIS JavaScript API
+- **Smart Search**: Filter resources by type (Feature, App, Reference) and keywords
+- **Category Organization**: Resources organized by disaster type (Weather, Wildfire, Flooding, etc.)
+- **Simple Authentication**: Secure access with password protection
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Layer Management**: Add, remove, and manage multiple layers simultaneously
 - **Export Capabilities**: Export map configurations for use in ArcGIS Online
-- **Resource Types**: Support for Feature Layers, Applications, and Reference materials
-- **Red Cross Integration**: Special support for Red Cross disaster response data
 
-## Quick Start
+## 📦 Resource Categories
 
-1. Install dependencies:
-```bash
-npm install
-```
+- **Census & Demographics**: Population data, housing units, block characteristics
+- **Weather & Storms**: NWS data, storm predictions, hurricane tracking
+- **Wildfire**: Fire perimeters, incident locations, situational awareness
+- **Flooding**: Water prediction, flood inundation mapping, river gauges
+- **Emergency Response**: Red Cross shelters, crisis cleanup, damage assessment
+- **Infrastructure**: Power outages, road closures, transportation
+- **FEMA Resources**: Damage assessment, structures data, resilience analysis
 
-2. Run the development server:
-```bash
-npm run dev
-```
+## 🛠️ Tech Stack
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Mapping**: ArcGIS JavaScript API 4.30
+- **Styling**: Tailwind CSS
+- **Data**: CSV parsing with PapaParse
+- **Authentication**: Hybrid (Simple/OAuth)
+- **Deployment**: Vercel
 
-## Data Sources
+## 🏗️ Setup & Installation
 
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/franzenjb/mapping-resource-tool.git
+   cd mapping-resource-tool
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file:
+   ```env
+   NEXT_PUBLIC_AUTH_MODE=simple
+   NEXT_PUBLIC_ARCGIS_CLIENT_ID=your_client_id
+   NEXT_PUBLIC_AUTH_PASSWORD=your_password
+   ```
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000)
+
+## 📝 Development Notes
+
+### Authentication
+- **Development**: Uses simple password authentication (default: "redcross")
+- **Production**: Can be configured for ArcGIS OAuth 2.0
+
+### Data Sources
 The tool includes rich mapping resources from:
 - FEMA structures and damage assessment data
-- Census blocks and demographics
-- National Weather Service products
-- Storm prediction and hurricane tracking
-- Red Cross operational data
+- U.S. Census Bureau demographics and blocks
+- National Weather Service products and forecasts
+- NOAA Storm Prediction Center
+- Red Cross operational data and shelters
 - OpenStreetMap building footprints
 - Microsoft Building Footprints
-- And many more...
+- NIFC wildfire data
+- USGS National Map
 
-## Technology Stack
-
-- **Framework**: Next.js 15 with TypeScript
-- **Mapping**: ArcGIS JavaScript API 4.28
-- **Styling**: Tailwind CSS
-- **Data Processing**: PapaParse for CSV parsing
-
-## Project Structure
-
-```
-mapping-resource-tool/
-├── app/                    # Next.js app directory
-├── components/             # React components
-│   ├── MapView.tsx        # Interactive map component
-│   ├── SearchBar.tsx      # Search interface
-│   ├── SearchResults.tsx  # Results display
-│   └── ExportButton.tsx   # Export functionality
-├── lib/                   # Utility functions
-│   ├── types.ts          # TypeScript interfaces
-│   └── search.ts         # Search and data processing
-└── public/data/          # CSV data files
+### Adding New Resources
+Edit `/public/data/mapping_resources.csv` to add new mapping resources. Format:
+```csv
+Item,Link,Description,"Feature, App or Reference",Category
 ```
 
-## Usage
+### Key Files
+- `/app/page.tsx` - Main application interface
+- `/components/MapView.tsx` - ArcGIS map component
+- `/components/HybridAuth.tsx` - Authentication system
+- `/lib/search.ts` - Search and filter logic
+- `/public/data/mapping_resources.csv` - Resource database
 
-1. **Search**: Use the search bar to find mapping resources by keyword
-2. **Filter**: Select resource type (Feature, App, Reference)
-3. **Add to Map**: Click "Add to Map" for feature layers
-4. **View Source**: Access original data sources via "View Source" links
-5. **Open Apps**: Launch external mapping applications
-6. **Export**: Download map configuration as JSON
+## 🔄 Future Enhancements
 
-## Development
+- [ ] User favorites/bookmarks system
+- [ ] Advanced layer metadata preview
+- [ ] Collaboration features for teams
+- [ ] API integration for dynamic updates
+- [ ] Mobile app version
+- [ ] Offline capability for field work
+- [ ] Custom layer upload support
+- [ ] Integration with Red Cross CAS system
+- [ ] Historical disaster overlays
+- [ ] Real-time alert integration
 
-```bash
-# Install dependencies
-npm install
+## 🤝 Contributing
 
-# Run development server
-npm run dev
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-# Build for production
-npm run build
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-# Start production server
-npm start
-```
+## 📄 License
 
-## License
+This project is proprietary to the American Red Cross.
 
-MIT
+## 🙏 Acknowledgments
+
+Special thanks to:
+- American Red Cross GIS team
+- ArcGIS Living Atlas contributors
+- NOAA/NWS for weather data
+- FEMA for disaster response data
+- All data providers listed in the resources
+
+## 📧 Contact
+
+Jeff Franzen - jeff.franzen2@redcross.org
+
+---
+
+**Last Updated:** September 2025  
+**Version:** 1.0.0  
+**Status:** Active Development
