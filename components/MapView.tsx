@@ -3,6 +3,7 @@
 import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import { MappingLayer, MapViewRef } from '@/lib/types'
 import { extractArcGISItemId, isFeatureService } from '@/lib/search'
+import { getPopupTemplate } from '@/lib/popup-templates'
 
 interface MapViewProps {
   selectedLayers: MappingLayer[]
@@ -36,7 +37,8 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
                 url: urlMatch[1],
                 title: layer.item,
                 popupEnabled: true,
-                outFields: ['*']
+                outFields: ['*'],
+                popupTemplate: getPopupTemplate(layer.item)
               })
               await newLayer.load()
             } catch (err) {
@@ -66,6 +68,12 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
                 portalItem: portalItem
               })
               newLayer.title = layer.item
+              // Set popup template after layer is created
+              if (newLayer.popupEnabled !== undefined) {
+                newLayer.popupEnabled = true
+                newLayer.popupTemplate = getPopupTemplate(layer.item)
+                newLayer.outFields = ['*']
+              }
             } catch (err) {
               // If portal item fails, try as a feature layer with the item URL
               try {
@@ -74,7 +82,8 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
                   url: serviceUrl,
                   title: layer.item,
                   popupEnabled: true,
-                  outFields: ['*']
+                  outFields: ['*'],
+                  popupTemplate: getPopupTemplate(layer.item)
                 })
                 await newLayer.load()
               } catch (err2) {
