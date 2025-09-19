@@ -7,7 +7,11 @@ export async function loadLayers(): Promise<MappingLayer[]> {
   if (cachedLayers) return cachedLayers
   
   try {
-    const response = await fetch('/data/mapping_resources.csv')
+    // Fix path for both local and GitHub Pages
+    const csvPath = process.env.NEXT_PUBLIC_BASE_PATH 
+      ? `${process.env.NEXT_PUBLIC_BASE_PATH}/data/mapping_resources.csv`
+      : '/data/mapping_resources.csv'
+    const response = await fetch(csvPath)
     const csvText = await response.text()
     
     return new Promise((resolve, reject) => {
