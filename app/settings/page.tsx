@@ -107,24 +107,37 @@ export default function SettingsPage() {
               </div>
             </div>
             
-            {/* API Configuration */}
+            {/* Authentication Status */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900 mb-5">API Configuration</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-5">Authentication Status</h2>
               
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    ArcGIS API Key
-                  </label>
-                  <input
-                    type="password"
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-medium placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
-                    placeholder="Enter your API key"
-                    value={settings.apiKey}
-                    onChange={(e) => setSettings({...settings, apiKey: e.target.value})}
-                  />
-                  <p className="mt-2 text-sm text-gray-600 font-medium">
-                    Required for premium features and higher rate limits
+                <div className="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">Authenticated</p>
+                      <p className="text-sm text-gray-600">You are logged in and have API access</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem('auth-token');
+                      localStorage.removeItem('mapping-tool-auth');
+                      window.location.href = '/';
+                    }}
+                    className="px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-blue-800 font-medium">
+                    ℹ️ Your authentication provides full API access to all public layers. No additional API key needed.
                   </p>
                 </div>
               </div>
