@@ -1,130 +1,45 @@
 // Popup templates for different layer types
 
 export const getPopupTemplate = (layerName: string) => {
-  // Census Block layers
+  // Census Block layers - use a simpler wildcard approach first
   if (layerName.includes('Census Block') || layerName.includes('USA 2020 Census')) {
     return {
-      title: "{NAME} in {COUNTY}, {STATE}",
+      title: "Census Block {GEOID}",
       content: [{
-        type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "P0010001",
-            label: "Total Population",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "H0010001",
-            label: "Total Housing Units",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "H0010002",
-            label: "Occupied Housing Units",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "H0010003",
-            label: "Vacant Housing Units",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "ALAND",
-            label: "Land Area (sq meters)",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "AWATER",
-            label: "Water Area (sq meters)",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "GEOID",
-            label: "Geographic ID"
-          },
-          {
-            fieldName: "BLOCK",
-            label: "Block Number"
-          },
-          {
-            fieldName: "TRACT",
-            label: "Census Tract"
-          }
-        ]
-      }, {
         type: "text",
-        text: "<b>Population Density:</b> {expression/density} people per sq mile"
-      }],
-      expressionInfos: [{
-        name: "density",
-        expression: "Round(($feature.P0010001 / ($feature.ALAND * 0.0000003861)) * 100) / 100",
-        title: "Population Density"
+        text: "<b>Census Block Information</b><br/>" +
+              "Click to view detailed census data for this block.<br/><br/>" +
+              "Geographic ID: {GEOID}<br/>" +
+              "State: {STATE}<br/>" + 
+              "County: {COUNTY}<br/>" +
+              "Block: {BLOCK}"
+      }, {
+        type: "fields",
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
 
-  // USA Structures
+  // USA Structures - simplified
   if (layerName.includes('USA Structures')) {
     return {
-      title: "Structure Information",
+      title: "Structure at {ADDRESS}",
       content: [{
+        type: "text",
+        text: "<b>Building Information</b><br/>" +
+              "Address: {ADDRESS}<br/>" +
+              "City: {CITY}<br/>" +
+              "State: {STATE}<br/>" +
+              "ZIP: {ZIP}"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "ADDRESS",
-            label: "Address"
-          },
-          {
-            fieldName: "CITY",
-            label: "City"
-          },
-          {
-            fieldName: "STATE",
-            label: "State"
-          },
-          {
-            fieldName: "ZIP",
-            label: "ZIP Code"
-          },
-          {
-            fieldName: "BLDG_TYPE",
-            label: "Building Type"
-          },
-          {
-            fieldName: "SQ_FEET",
-            label: "Square Feet",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "YEAR_BUILT",
-            label: "Year Built"
-          },
-          {
-            fieldName: "OCCUP_TYPE",
-            label: "Occupancy Type"
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -134,45 +49,14 @@ export const getPopupTemplate = (layerName: string) => {
     return {
       title: "Address Point",
       content: [{
+        type: "text", 
+        text: "<b>Address Information</b>"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "FullAddr",
-            label: "Full Address"
-          },
-          {
-            fieldName: "Add_Number",
-            label: "Street Number"
-          },
-          {
-            fieldName: "StName",
-            label: "Street Name"
-          },
-          {
-            fieldName: "StType",
-            label: "Street Type"
-          },
-          {
-            fieldName: "City",
-            label: "City"
-          },
-          {
-            fieldName: "State",
-            label: "State"
-          },
-          {
-            fieldName: "Zip",
-            label: "ZIP Code"
-          },
-          {
-            fieldName: "County",
-            label: "County"
-          },
-          {
-            fieldName: "Placement",
-            label: "Placement Method"
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -182,51 +66,17 @@ export const getPopupTemplate = (layerName: string) => {
     return {
       title: "{IncidentName} Fire",
       content: [{
+        type: "text",
+        text: "<b>Fire Information</b><br/>" +
+              "Name: {IncidentName}<br/>" +
+              "Acres: {GISAcres}<br/>" +
+              "Containment: {PercentContained}%"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "IncidentName",
-            label: "Fire Name"
-          },
-          {
-            fieldName: "GISAcres",
-            label: "Acres Burned",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "PercentContained",
-            label: "Percent Contained"
-          },
-          {
-            fieldName: "FireDiscoveryDateTime",
-            label: "Discovery Date",
-            format: {
-              dateFormat: "short-date-short-time"
-            }
-          },
-          {
-            fieldName: "ModifiedOnDateTime",
-            label: "Last Updated",
-            format: {
-              dateFormat: "short-date-short-time"
-            }
-          },
-          {
-            fieldName: "FireCause",
-            label: "Fire Cause"
-          },
-          {
-            fieldName: "POOState",
-            label: "State"
-          },
-          {
-            fieldName: "POOCounty",
-            label: "County"
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -236,44 +86,17 @@ export const getPopupTemplate = (layerName: string) => {
     return {
       title: "{IncidentName}",
       content: [{
+        type: "text",
+        text: "<b>Fire Incident</b><br/>" +
+              "Type: {IncidentTypeCategory}<br/>" +
+              "Acres: {DailyAcres}<br/>" +
+              "Contained: {PercentContained}%"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "IncidentName",
-            label: "Incident Name"
-          },
-          {
-            fieldName: "IncidentTypeCategory",
-            label: "Incident Type"
-          },
-          {
-            fieldName: "DailyAcres",
-            label: "Daily Acres",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "PercentContained",
-            label: "Percent Contained"
-          },
-          {
-            fieldName: "FireDiscoveryDateTime",
-            label: "Discovery Date",
-            format: {
-              dateFormat: "short-date"
-            }
-          },
-          {
-            fieldName: "POOState",
-            label: "State"
-          },
-          {
-            fieldName: "POOCounty",
-            label: "County"
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -281,52 +104,16 @@ export const getPopupTemplate = (layerName: string) => {
   // Stream gauges
   if (layerName.includes('Stream Gauge') || layerName.includes('Live Stream')) {
     return {
-      title: "{station_nm}",
+      title: "Stream Gauge",
       content: [{
+        type: "text",
+        text: "<b>Water Level Information</b>"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "station_nm",
-            label: "Station Name"
-          },
-          {
-            fieldName: "status",
-            label: "Current Status"
-          },
-          {
-            fieldName: "stage",
-            label: "Stage (ft)",
-            format: {
-              places: 2
-            }
-          },
-          {
-            fieldName: "flow",
-            label: "Flow (cfs)",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "flood_stage",
-            label: "Flood Stage (ft)",
-            format: {
-              places: 2
-            }
-          },
-          {
-            fieldName: "datetime",
-            label: "Last Reading",
-            format: {
-              dateFormat: "short-date-short-time"
-            }
-          },
-          {
-            fieldName: "huc_cd",
-            label: "HUC Code"
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -336,33 +123,14 @@ export const getPopupTemplate = (layerName: string) => {
     return {
       title: "Building Footprint",
       content: [{
-        type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "Shape__Area",
-            label: "Building Area (sq meters)",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "Shape__Length",
-            label: "Perimeter (meters)",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          }
-        ]
-      }, {
         type: "text",
-        text: "<b>Approx. Square Feet:</b> {expression/sqft}"
-      }],
-      expressionInfos: [{
-        name: "sqft",
-        expression: "Round($feature.Shape__Area * 10.764)",
-        title: "Square Feet"
+        text: "<b>Building Details</b>"
+      }, {
+        type: "fields",
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -370,49 +138,16 @@ export const getPopupTemplate = (layerName: string) => {
   // Power outages
   if (layerName.includes('Power Outage')) {
     return {
-      title: "{County} County Power Outages",
+      title: "Power Outage Information",
       content: [{
+        type: "text",
+        text: "<b>Outage Details</b>"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "County",
-            label: "County"
-          },
-          {
-            fieldName: "State",
-            label: "State"
-          },
-          {
-            fieldName: "CustomersOut",
-            label: "Customers Without Power",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "CustomersTracked",
-            label: "Total Customers",
-            format: {
-              digitSeparator: true,
-              places: 0
-            }
-          },
-          {
-            fieldName: "PercentOut",
-            label: "Percent Out",
-            format: {
-              places: 1
-            }
-          },
-          {
-            fieldName: "LastUpdate",
-            label: "Last Updated",
-            format: {
-              dateFormat: "short-date-short-time"
-            }
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
@@ -420,61 +155,29 @@ export const getPopupTemplate = (layerName: string) => {
   // 511 Events (traffic)
   if (layerName.includes('511 Event')) {
     return {
-      title: "{event_type}",
+      title: "Traffic Event",
       content: [{
+        type: "text",
+        text: "<b>Traffic Incident</b>"
+      }, {
         type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "event_type",
-            label: "Event Type"
-          },
-          {
-            fieldName: "description",
-            label: "Description"
-          },
-          {
-            fieldName: "road",
-            label: "Road/Highway"
-          },
-          {
-            fieldName: "direction",
-            label: "Direction"
-          },
-          {
-            fieldName: "severity",
-            label: "Severity"
-          },
-          {
-            fieldName: "start_date",
-            label: "Start Time",
-            format: {
-              dateFormat: "short-date-short-time"
-            }
-          },
-          {
-            fieldName: "end_date",
-            label: "Expected End",
-            format: {
-              dateFormat: "short-date-short-time"
-            }
-          }
-        ]
+        fieldInfos: [{
+          fieldName: "*",
+          label: null
+        }]
       }]
     }
   }
 
-  // Default popup for unrecognized layers
+  // Most universal default - shows ALL fields
   return {
-    title: "{*}",
+    title: layerName,
     content: [{
       type: "fields",
       fieldInfos: [{
         fieldName: "*",
         label: null
       }]
-    }],
-    fieldInfosFormat: {
-      digitSeparator: true
-    }
+    }]
   }
 }

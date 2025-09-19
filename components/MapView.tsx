@@ -4,6 +4,7 @@ import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import { MappingLayer, MapViewRef } from '@/lib/types'
 import { extractArcGISItemId, isFeatureService } from '@/lib/search'
 import { getPopupTemplate } from '@/lib/popup-templates'
+import { loadSettings } from '@/lib/settings'
 
 interface MapViewProps {
   selectedLayers: MappingLayer[]
@@ -16,6 +17,11 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
 
   useImperativeHandle(ref, () => ({
     view: viewRef.current,
+    changeBasemap: (basemapId: string) => {
+      if (viewRef.current && viewRef.current.map) {
+        viewRef.current.map.basemap = basemapId
+      }
+    },
     addLayer: async (layer: MappingLayer) => {
       if (!viewRef.current) return
       
@@ -142,6 +148,22 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
       }
       
       return webmap
+    },
+    applySettings: (settings: any) => {
+      if (!viewRef.current) return
+      
+      // Change basemap
+      if (settings.defaultBasemap) {
+        viewRef.current.map.basemap = settings.defaultBasemap
+      }
+      
+      // Toggle legend
+      const widgets = viewRef.current.ui.find(widget => 
+        widget.content && widget.content.declaredClass === 'esri.widgets.Legend'
+      )
+      if (widgets && widgets.expanded !== undefined) {
+        widgets.expanded = settings.showLegend
+      }
     }
   }))
 
@@ -161,8 +183,10 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
           import('@arcgis/core/widgets/Home')
         ])
 
+        const settings = loadSettings()
+        
         const map = new Map.default({
-          basemap: 'topo-vector'
+          basemap: settings.defaultBasemap || 'topo-vector'
         })
 
         const view = new MapView.default({
@@ -191,7 +215,7 @@ const MapView = forwardRef<MapViewRef, MapViewProps>(({ selectedLayers }, ref) =
           view: view,
           content: legend,
           expandIcon: 'legend',
-          expanded: false,
+          expanded: settings.showLegend || false,
           group: 'bottom-right'
         })
 

@@ -10,8 +10,10 @@ export interface MappingLayer {
 
 export interface MapViewRef {
   view: any
+  changeBasemap: (basemapId: string) => void
   addLayer: (layer: MappingLayer) => Promise<void>
   removeLayer: (layerName: string) => void
   clearAllLayers: () => void
   exportWebMap: () => any
+  applySettings: (settings: any) => void
 }
