@@ -52,15 +52,16 @@ export default function SettingsPage() {
                     Default Basemap
                   </label>
                   <select
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg bg-white font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    style={{color: '#111827', fontWeight: '700'}}
                     value={settings.defaultBasemap}
                     onChange={(e) => setSettings({...settings, defaultBasemap: e.target.value})}
                   >
-                    <option value="topo-vector" className="font-semibold text-gray-900">Topographic</option>
-                    <option value="streets-vector" className="font-semibold text-gray-900">Streets</option>
-                    <option value="satellite" className="font-semibold text-gray-900">Satellite</option>
-                    <option value="hybrid" className="font-semibold text-gray-900">Hybrid</option>
-                    <option value="gray-vector" className="font-semibold text-gray-900">Gray Canvas</option>
+                    <option value="topo-vector" style={{color: '#111827', fontWeight: '600'}}>Topographic</option>
+                    <option value="streets-vector" style={{color: '#111827', fontWeight: '600'}}>Streets</option>
+                    <option value="satellite" style={{color: '#111827', fontWeight: '600'}}>Satellite</option>
+                    <option value="hybrid" style={{color: '#111827', fontWeight: '600'}}>Hybrid</option>
+                    <option value="gray-vector" style={{color: '#111827', fontWeight: '600'}}>Gray Canvas</option>
                   </select>
                 </div>
                 
@@ -73,7 +74,7 @@ export default function SettingsPage() {
                       checked={settings.autoSave}
                       onChange={(e) => setSettings({...settings, autoSave: e.target.checked})}
                     />
-                    <label htmlFor="autoSave" className="ml-3 text-gray-900 font-medium">
+                    <label htmlFor="autoSave" className="ml-3 text-gray-900 font-bold">
                       Auto-save map configurations
                     </label>
                   </div>
@@ -86,7 +87,7 @@ export default function SettingsPage() {
                       checked={settings.showLegend}
                       onChange={(e) => setSettings({...settings, showLegend: e.target.checked})}
                     />
-                    <label htmlFor="showLegend" className="ml-3 text-gray-900 font-medium">
+                    <label htmlFor="showLegend" className="ml-3 text-gray-900 font-bold">
                       Show legend by default
                     </label>
                   </div>
@@ -99,7 +100,7 @@ export default function SettingsPage() {
                       checked={settings.enableClustering}
                       onChange={(e) => setSettings({...settings, enableClustering: e.target.checked})}
                     />
-                    <label htmlFor="enableClustering" className="ml-3 text-gray-900 font-medium">
+                    <label htmlFor="enableClustering" className="ml-3 text-gray-900 font-bold">
                       Enable point clustering for large datasets
                     </label>
                   </div>
@@ -154,7 +155,8 @@ export default function SettingsPage() {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-bold placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg bg-white font-bold placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    style={{color: '#111827', fontWeight: '700'}}
                     value={settings.organization}
                     onChange={(e) => setSettings({...settings, organization: e.target.value})}
                   />
@@ -165,14 +167,15 @@ export default function SettingsPage() {
                     Default Region
                   </label>
                   <select
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg bg-white font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    style={{color: '#111827', fontWeight: '700'}}
                     value={settings.region}
                     onChange={(e) => setSettings({...settings, region: e.target.value})}
                   >
-                    <option value="US East" className="font-semibold text-gray-900">US East</option>
-                    <option value="US West" className="font-semibold text-gray-900">US West</option>
-                    <option value="US Central" className="font-semibold text-gray-900">US Central</option>
-                    <option value="International" className="font-semibold text-gray-900">International</option>
+                    <option value="US East" style={{color: '#111827', fontWeight: '600'}}>US East</option>
+                    <option value="US West" style={{color: '#111827', fontWeight: '600'}}>US West</option>
+                    <option value="US Central" style={{color: '#111827', fontWeight: '600'}}>US Central</option>
+                    <option value="International" style={{color: '#111827', fontWeight: '600'}}>International</option>
                   </select>
                 </div>
               </div>
@@ -182,17 +185,17 @@ export default function SettingsPage() {
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
               <h2 className="text-xl font-bold text-gray-900 mb-5">About</h2>
               <div className="space-y-3 text-gray-700">
-                <p className="font-medium">
-                  <span className="text-gray-900 font-semibold">Version:</span> 1.0.0
+                <p className="font-bold">
+                  <span className="text-gray-900 font-bold">Version:</span> 1.0.0
                 </p>
-                <p className="font-medium">
-                  <span className="text-gray-900 font-semibold">Built with:</span> Next.js, ArcGIS JavaScript API
+                <p className="font-bold">
+                  <span className="text-gray-900 font-bold">Built with:</span> Next.js, ArcGIS JavaScript API
                 </p>
-                <p className="font-medium">
-                  <span className="text-gray-900 font-semibold">Support:</span> jeff.franzen2@redcross.org
+                <p className="font-bold">
+                  <span className="text-gray-900 font-bold">Support:</span> jeff.franzen2@redcross.org
                 </p>
-                <p className="font-medium">
-                  <span className="text-gray-900 font-semibold">GitHub:</span>{' '}
+                <p className="font-bold">
+                  <span className="text-gray-900 font-bold">GitHub:</span>{' '}
                   <a 
                     href="https://github.com/franzenjb/mapping-resource-tool" 
                     target="_blank" 
@@ -208,13 +211,13 @@ export default function SettingsPage() {
             {/* Action Buttons */}
             <div className="flex justify-end space-x-3 pb-8">
               <button
-                className="px-6 py-2.5 border-2 border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
+                className="px-6 py-2.5 border-2 border-gray-300 rounded-lg text-gray-700 font-bold hover:bg-gray-50 transition-colors"
                 onClick={() => window.location.reload()}
               >
                 Reset
               </button>
               <button
-                className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md"
+                className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-md"
                 onClick={handleSave}
               >
                 Save Settings
