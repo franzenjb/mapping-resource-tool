@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation'
 import HelpModal from '@/components/HelpModal'
 import { searchLayers, canAddToMap } from '@/lib/search'
 import { MappingLayer, MapViewRef } from '@/lib/types'
+import { getLayerStatus } from '@/lib/working-layers'
 
 const MapView = dynamic(() => import('@/components/MapView'), {
   ssr: false,
@@ -28,6 +29,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null)
   const [showHelp, setShowHelp] = useState(false)
   const [showWelcome, setShowWelcome] = useState(false)
+  const [showOnlyWorking, setShowOnlyWorking] = useState(true)
   const mapRef = useRef<MapViewRef>(null)
 
   useEffect(() => {
@@ -168,6 +170,26 @@ export default function Home() {
                 </button>
               )}
             </div>
+            
+            {/* Filter Toggle */}
+            <div className="mt-3 flex items-center gap-2">
+              <button
+                onClick={() => setShowOnlyWorking(!showOnlyWorking)}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium text-sm transition-all ${
+                  showOnlyWorking 
+                    ? 'bg-green-100 text-green-700 border-2 border-green-300' 
+                    : 'bg-gray-100 text-gray-700 border-2 border-gray-300'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={showOnlyWorking}
+                  onChange={() => setShowOnlyWorking(!showOnlyWorking)}
+                  className="rounded"
+                />
+                Show Only Working Layers
+              </button>
+            </div>
           </div>
           
           {/* Scrollable Results */}
@@ -201,9 +223,17 @@ export default function Home() {
               </div>
             ) : (
               <div className="space-y-3">
-                {searchResults.slice(0, 50).map((layer, index) => {
+                {searchResults
+                  .filter(layer => {
+                    if (!showOnlyWorking) return true
+                    if (layer.type !== 'Feature') return true // Always show Apps and References
+                    return getLayerStatus(layer.item) === 'working'
+                  })
+                  .slice(0, 50)
+                  .map((layer, index) => {
                   const canAdd = canAddToMap(layer)
                   const isSelected = selectedLayers.some(l => l.item === layer.item)
+                  const layerStatus = getLayerStatus(layer.item)
                   
                   return (
                     <div
@@ -230,9 +260,27 @@ export default function Home() {
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 text-base mb-1.5 line-clamp-1">
-                            {layer.item}
-                          </h3>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-semibold text-gray-900 text-base line-clamp-1">
+                              {layer.item}
+                            </h3>
+                            {layer.type === 'Feature' && (
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                                layerStatus === 'working' 
+                                  ? 'bg-green-100 text-green-700'
+                                  : layerStatus === 'auth-required'
+                                  ? 'bg-yellow-100 text-yellow-700'
+                                  : layerStatus === 'app'
+                                  ? 'bg-purple-100 text-purple-700'
+                                  : 'bg-gray-100 text-gray-600'
+                              }`}>
+                                {layerStatus === 'working' && '✓ Works'}
+                                {layerStatus === 'auth-required' && '🔒 Red Cross Only'}
+                                {layerStatus === 'app' && '📱 Actually an App'}
+                                {layerStatus === 'unknown' && '? Untested'}
+                              </span>
+                            )}
+                          </div>
                           <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
                             {layer.description}
                           </p>
