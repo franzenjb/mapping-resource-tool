@@ -52,15 +52,15 @@ export default function SettingsPage() {
                     Default Basemap
                   </label>
                   <select
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-medium focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
                     value={settings.defaultBasemap}
                     onChange={(e) => setSettings({...settings, defaultBasemap: e.target.value})}
                   >
-                    <option value="topo-vector">Topographic</option>
-                    <option value="streets-vector">Streets</option>
-                    <option value="satellite">Satellite</option>
-                    <option value="hybrid">Hybrid</option>
-                    <option value="gray-vector">Gray Canvas</option>
+                    <option value="topo-vector" className="font-semibold text-gray-900">Topographic</option>
+                    <option value="streets-vector" className="font-semibold text-gray-900">Streets</option>
+                    <option value="satellite" className="font-semibold text-gray-900">Satellite</option>
+                    <option value="hybrid" className="font-semibold text-gray-900">Hybrid</option>
+                    <option value="gray-vector" className="font-semibold text-gray-900">Gray Canvas</option>
                   </select>
                 </div>
                 
@@ -154,7 +154,7 @@ export default function SettingsPage() {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-medium placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-bold placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
                     value={settings.organization}
                     onChange={(e) => setSettings({...settings, organization: e.target.value})}
                   />
@@ -165,14 +165,14 @@ export default function SettingsPage() {
                     Default Region
                   </label>
                   <select
-                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-medium focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                    className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg text-gray-900 bg-white font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
                     value={settings.region}
                     onChange={(e) => setSettings({...settings, region: e.target.value})}
                   >
-                    <option value="US East">US East</option>
-                    <option value="US West">US West</option>
-                    <option value="US Central">US Central</option>
-                    <option value="International">International</option>
+                    <option value="US East" className="font-semibold text-gray-900">US East</option>
+                    <option value="US West" className="font-semibold text-gray-900">US West</option>
+                    <option value="US Central" className="font-semibold text-gray-900">US Central</option>
+                    <option value="International" className="font-semibold text-gray-900">International</option>
                   </select>
                 </div>
               </div>
